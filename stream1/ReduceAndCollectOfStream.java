@@ -51,6 +51,19 @@ public class ReduceAndCollectOfStream {
         Map<Employee.Status, Map<String, List<Employee>>> collect3 = employees.stream()
                 .collect(Collectors.groupingBy(Employee::getStatus, Collectors.groupingBy(ReduceAndCollectOfStream::groupByAge)));
         System.out.println(collect3);
+
+        //分区
+        Map<Boolean, List<Employee>> collect4 = employees.stream()
+                .collect(Collectors.partitioningBy((e) -> e.getAge() > 30));
+        System.out.println(collect4);
+        //数值操作
+        Integer collect5 = employees.stream().collect(Collectors.summingInt(Employee::getAge));
+        System.out.println(collect5);
+        //总函数
+        IntSummaryStatistics collect6 = employees.stream().collect(Collectors
+                .summarizingInt(Employee::getAge));
+        System.out.println(collect6.getAverage());
+        System.out.println(collect6.getMax());
     }
 
     public static String groupByAge(Employee e){
